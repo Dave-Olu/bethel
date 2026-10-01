@@ -93,7 +93,7 @@
         <a href="#programs" class="btn-ghost">See all programs</a>
       </div>
       <div class="stat-row">
-        <div class="stat"><b>5</b><span>Training tracks</span></div>
+        <div class="stat"><b>6</b><span>Training tracks</span></div>
         <div class="stat"><b>8–Adult</b><span>Age range</span></div>
         <div class="stat"><b>3</b><span>Schedule formats</span></div>
       </div>
@@ -168,7 +168,7 @@
     <div class="pass-head">
       <div class="eyebrow">Registration</div>
       <h2>Reserve your seat</h2>
-      <p>Fill in your details below. Our team will confirm your enrollment and add you to the class WhatsApp community.</p>
+      <p>Fill in your details to prepare a WhatsApp message. Your request is sent only after you open WhatsApp and press Send.</p>
     </div>
 
     <div class="pass">
@@ -192,7 +192,7 @@
           </div>
           <div class="field">
             <label for="age"><i class="fa-solid fa-cake-candles" aria-hidden="true"></i> Age</label>
-            <input type="number" id="age" name="age" min="5" max="99" placeholder="e.g. 14" required>
+            <input type="number" id="age" name="age" min="8" max="99" placeholder="e.g. 14" required>
           </div>
           <div class="field">
             <label for="email"><i class="fa-regular fa-envelope" aria-hidden="true"></i> Email address</label>
@@ -220,6 +220,7 @@
               <option>Python Programming</option>
               <option>C Programming</option>
               <option>AI and Content Creation</option>
+              <option>3-Month Practical Tech Training</option>
             </select>
           </div>
 
@@ -262,7 +263,7 @@
 
           <div class="submit-row">
             <span class="fine">By reserving a seat you agree to be contacted by BLI about your enrollment.</span>
-            <button type="submit" class="btn-submit"><i class="fa-solid fa-rocket" aria-hidden="true"></i> Reserve my seat</button>
+            <button type="submit" class="btn-submit"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Prepare WhatsApp message</button>
           </div>
         </div>
       </form>
@@ -271,8 +272,10 @@
         <div class="ok-badge">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l6 6L20 6"/></svg>
         </div>
-        <h3 id="confirmName">You're on the list.</h3>
-        <p>We'll reach out by email or WhatsApp within 24 hours with your class schedule and next steps.</p>
+        <h3 id="confirmName" tabindex="-1">Your message is ready.</h3>
+        <p>Your request has not been sent yet. Continue to WhatsApp and press Send to contact our team.</p>
+        <a class="btn-submit" id="whatsappHandoff" href="#" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Continue to WhatsApp</a>
+        <p>Reference for your message:</p>
         <div class="ref-code" id="refCode">BLI-000000</div>
       </div>
     </div>

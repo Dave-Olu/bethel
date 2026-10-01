@@ -1,4 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const yearEl = document.getElementById('year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  const independenceFeature = document.getElementById('independence-feature');
+  if (independenceFeature) {
+    const parts = new Intl.DateTimeFormat('en', {
+      timeZone: 'Africa/Lagos',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    }).formatToParts(new Date());
+    const nigeriaDate = Object.fromEntries(
+      parts.filter(({ type }) => type !== 'literal').map(({ type, value }) => [type, value])
+    );
+
+    if (nigeriaDate.month === '10' && nigeriaDate.day === '01') {
+      const anniversary = document.getElementById('independence-anniversary');
+      if (anniversary) anniversary.textContent = String(Number(nigeriaDate.year) - 1960);
+      independenceFeature.hidden = false;
+    }
+  }
+
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.getElementById('nav-links');
   const navOverlay = document.getElementById('nav-overlay');

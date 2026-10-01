@@ -4,8 +4,5 @@
 User-agent: *
 Allow: /
 
-# Keep the registration/form page out of search indexes
-Disallow: /registration.html
-
 # Point crawlers to the sitemap
 Sitemap: https://bethelearninginstitute.com/sitemap.xml

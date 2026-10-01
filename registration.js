@@ -1,14 +1,12 @@
 const BLI_WHATSAPP = '2348166330072';
-const BLI_EMAIL = 'bethelearninginstitute@gmail.com';
 
 const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 const form = document.getElementById('regForm');
 const confirmPanel = document.getElementById('confirmPanel');
-const confirmName = document.getElementById('confirmName');
 const refCode = document.getElementById('refCode');
-const submitButton = form?.querySelector('button[type="submit"]');
+const whatsappHandoff = document.getElementById('whatsappHandoff');
 
 const clearFieldError = (field) => {
   const wrapper = field.closest('.field');
@@ -68,7 +66,7 @@ if (form) {
     };
 
     if (fullName.length < 2) addError(fields.fullName, 'Please enter your full name.');
-    if (!age || Number(age) < 5 || Number(age) > 99) addError(fields.age, 'Enter an age between 5 and 99.');
+    if (!age || Number(age) < 8 || Number(age) > 99) addError(fields.age, 'Enter an age between 8 and 99.');
     if (!fields.email.validity.valid) addError(fields.email, 'Enter a valid email address.');
     if (!/^\+?[0-9\s()-]{7,20}$/.test(phone)) addError(fields.phone, 'Enter a valid phone or WhatsApp number.');
     if (!program) addError(fields.program, 'Please select a program.');
@@ -82,14 +80,7 @@ if (form) {
       return;
     }
 
-    if (submitButton) {
-      submitButton.disabled = true;
-      submitButton.setAttribute('aria-busy', 'true');
-      submitButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> Preparing...';
-    }
-
     const code = 'BLI-' + Math.floor(100000 + Math.random() * 900000);
-    const firstName = fullName.split(' ')[0] || 'there';
 
     const guardian = guardianName
       ? `Guardian: ${guardianName} | ${guardianPhone || 'no number given'}`
@@ -109,33 +100,11 @@ if (form) {
       `_Reference: ${code}_`;
 
     const waURL = `https://wa.me/${BLI_WHATSAPP}?text=${encodeURIComponent(msg)}`;
-    window.open(waURL, '_blank');
-
-    const emailSubject = `New Enrollment — ${fullName} (${code})`;
-    const emailBody =
-      `New BLI Enrollment\n` +
-      `Reference: ${code}\n\n` +
-      `Name:            ${fullName}\n` +
-      `Age:             ${age}\n` +
-      `Email:           ${email}\n` +
-      `Phone/WhatsApp:  ${phone}\n` +
-      `Guardian:        ${guardianName || 'N/A'} ${guardianPhone ? '| ' + guardianPhone : ''}\n\n` +
-      `Program:         ${program}\n` +
-      `Schedule:        ${schedule}\n` +
-      `Experience:      ${experience}\n` +
-      `Referral:        ${referral}`;
-
-    setTimeout(function () {
-      window.location.href =
-        `mailto:${BLI_EMAIL}` +
-        `?subject=${encodeURIComponent(emailSubject)}` +
-        `&body=${encodeURIComponent(emailBody)}`;
-    }, 400);
-
-    confirmName.textContent = `You're on the list, ${firstName}.`;
+    if (whatsappHandoff) whatsappHandoff.href = waURL;
     refCode.textContent = code;
 
     form.classList.add('hide');
     confirmPanel.classList.add('show');
+    confirmPanel.querySelector('h3')?.focus();
   });
 }
