@@ -21,6 +21,62 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  const codePanel = document.querySelector('.panel-body');
+  const codeLines = codePanel
+    ? [...codePanel.querySelectorAll(':scope > div:not(.panel-verse)')]
+    : [];
+
+  if (codeLines.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const textSegments = codeLines.map((line) => {
+      const walker = document.createTreeWalker(line, NodeFilter.SHOW_TEXT);
+      const segments = [];
+
+      while (walker.nextNode()) {
+        const textNode = walker.currentNode;
+        if (textNode.parentElement?.closest('.ln')) continue;
+        segments.push({ node: textNode, text: textNode.textContent });
+        textNode.textContent = '';
+      }
+
+      return segments;
+    });
+
+    const typeLine = (lineIndex) => {
+      if (lineIndex >= textSegments.length) {
+        codePanel.classList.add('typing-complete');
+        return;
+      }
+
+      const segments = textSegments[lineIndex];
+      let segmentIndex = 0;
+      let characterIndex = 0;
+
+      const typeNextCharacter = () => {
+        while (
+          segmentIndex < segments.length &&
+          characterIndex >= segments[segmentIndex].text.length
+        ) {
+          segmentIndex += 1;
+          characterIndex = 0;
+        }
+
+        if (segmentIndex >= segments.length) {
+          window.setTimeout(() => typeLine(lineIndex + 1), 110);
+          return;
+        }
+
+        const segment = segments[segmentIndex];
+        segment.node.textContent += segment.text.charAt(characterIndex);
+        characterIndex += 1;
+        window.setTimeout(typeNextCharacter, 18);
+      };
+
+      typeNextCharacter();
+    };
+
+    typeLine(0);
+  }
+
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.getElementById('nav-links');
   const navOverlay = document.getElementById('nav-overlay');

@@ -293,6 +293,19 @@
     line-height: 1.9;
     min-height: 260px;
   }
+  @keyframes codeCaretBlink {
+    50% { opacity: 0; }
+  }
+  .panel-body.typing-complete > div:nth-last-child(2)::after {
+    content: '';
+    display: inline-block;
+    width: 7px;
+    height: 1em;
+    margin-left: 4px;
+    vertical-align: -2px;
+    background: var(--gold);
+    animation: codeCaretBlink 1s steps(2, start) infinite;
+  }
   .panel-body .ln { color: #6E5C89; display: inline-block; width: 22px; user-select: none; }
   .c-key { color: #E5A45B; }
   .c-str { color: #C9A227; }
